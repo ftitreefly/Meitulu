@@ -9,7 +9,7 @@ import Foundation
 
 typealias RESPONSE = (Data?, URLResponse?, Error?)
 
-func synHTTPRequest(_ url: URL, _ header: Dictionary<AnyHashable, Any>? = nil) -> RESPONSE {
+func synHTTPRequest(_ url: URL, _ header: [AnyHashable: Any]? = nil) -> RESPONSE {
     var data: Data?
     var response: URLResponse?
     var error: Error?
@@ -22,10 +22,10 @@ func synHTTPRequest(_ url: URL, _ header: Dictionary<AnyHashable, Any>? = nil) -
     let session = URLSession(configuration: config)
 
     let semaphore = DispatchSemaphore(value: 0)
-    session.dataTask(with: url) { _data, _response, _error in
-        data = _data
-        response = _response
-        error = _error
+    session.dataTask(with: url) { sdata, sresponse, serror in
+        data = sdata
+        response = sresponse
+        error = serror
 
         semaphore.signal()
         }.resume()
@@ -35,7 +35,7 @@ func synHTTPRequest(_ url: URL, _ header: Dictionary<AnyHashable, Any>? = nil) -
     return RESPONSE(data: data, response: response, error: error)
 }
 
-func requestString(_ url: URL, _ header: Dictionary<AnyHashable, Any>? = nil) -> Result<String, Error> {
+func requestString(_ url: URL, _ header: [AnyHashable: Any]? = nil) -> Result<String, Error> {
 
     let response: RESPONSE = synHTTPRequest(url, header)
 
@@ -47,13 +47,17 @@ func requestString(_ url: URL, _ header: Dictionary<AnyHashable, Any>? = nil) ->
 }
 
 func requestHtml(_ url: URL) -> Result<String, Error> {
-    return requestString(url)
+    let header: [String: String] = [
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0.1 Safari/605.1.15"
+    ]
+    return requestString(url, header)
 }
+
 
 func loadCookies(domain: URL) {
     let cstorage = HTTPCookieStorage.shared
     if let cookies = cstorage.cookies(for: domain) {
-        for cookie:HTTPCookie in cookies {
+        for cookie: HTTPCookie in cookies {
             print("name：\(cookie.name)", "value：\(cookie.value)")
         }
     }

@@ -11,26 +11,21 @@ import MeituluKit
 class AlbumCommand: Command {
 
     let name: String = "album"
-    let shortDescription: String = "tools for show and download album."
+    let shortDescription: String = "CLI tools for show and download albums."
 
-    let isDownload = Flag("--download", description: "Download album", defaultValue: false)
-    let idOptional = OptionalParameter()
+    let isDownload = Flag("-d", "--download", description: "Download album", defaultValue: false)
+    let id = Param.Required<Int>()
 
     let downloadFolder = "~/Downloads/"
 
     func execute() throws {
 
-        guard let idValue = idOptional.value else {
-            print("Error: id needed!")
-            return
-        }
-
-        let id = Int(idValue)!
+        let idValue = id.value
 
         if !isDownload.value {
-            list(id)
+            list(idValue)
         } else {
-            download(id)
+            download(idValue, inFolder: downloadFolder)
         }
 
     }

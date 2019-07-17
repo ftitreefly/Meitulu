@@ -15,7 +15,8 @@ public class MeituluCLI {
                       description: MeituluCLI.description)
 
         cli.commands = [
-            AlbumCommand()
+            AlbumCommand(),
+            TagCommand(),
         ]
 
         cli.goAndExit()
