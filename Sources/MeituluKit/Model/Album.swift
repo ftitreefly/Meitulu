@@ -9,8 +9,8 @@ import Foundation
 import SwiftSoup
 import Files
 
-private let FOLDER_PARENT_ALBUM_NAME = "Meitulu_Albums"
-private let FOLDER_PARENT_TAG_NAME = "Meitulu_Tags"
+private let FOLDER_PARENT_ALBUM_NAME = "Meitulu_Albums" // swiftlint:disable:this identifier_name
+private let FOLDER_PARENT_TAG_NAME = "Meitulu_Tags" // swiftlint:disable:this identifier_name
 
 public struct Album {
     let id: Int
