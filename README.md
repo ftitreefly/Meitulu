@@ -1,6 +1,6 @@
-# Meitulu.com Website Resources Downloader 
+# Meitulu.com Website Resources Downloader
 
-A website resoucres downloader for site: Meitulu.com
+A website resoucres downloader for site: Meitulu.com, super fast download speed by aria2c.
 
 
 
