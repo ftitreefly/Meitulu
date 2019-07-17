@@ -42,7 +42,7 @@ struct Aria2c {
         let stdout = CaptureStream()
         let stderr = CaptureStream()
 
-        let task = Task(executable: "/usr/local/bin/aria2c", arguments: args, directory: directory, stdout: stdout, stderr: stderr)
+        let task = Task(executable: "aria2c", arguments: args, directory: directory, stdout: stdout, stderr: stderr)
         _ = task.runAsync()
 
         showProgressBar(10, task)

@@ -1,2 +1,5 @@
 let cli = MeituluCLI()
-cli.run()
+
+if cli.check() {
+    cli.run()
+}
